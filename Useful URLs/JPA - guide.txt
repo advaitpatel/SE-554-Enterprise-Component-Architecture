@@ -1,0 +1,15 @@
+-JPA Tutorials
+
+http://www.thejavageek.com/jpa-tutorials/
+
+-JPA Validations
+
+http://www.thejavageek.com/2014/05/27/jpa-bean-validation/
+
+https://antoniogoncalves.org/2010/03/03/bean-validation-with-jpa-1-0/
+
+- Master Guide
+http://www.tutorialspoint.com/jpa/
+
+
+https://github.com/gobozov/JPA
