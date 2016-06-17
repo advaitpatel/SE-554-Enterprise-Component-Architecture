@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+    <artifactId>account</artifactId>
+    <groupId>edu.depaul.cdm.se</groupId>
+    <version>7.7.1</version>
+  </parent>
+
+    <artifactId>account-ejb</artifactId>
+    <packaging>ejb</packaging>
+    <name>account-ejb</name>
+    <dependencies>
+        <dependency>
+            <groupId>edu.depaul.cdm.se</groupId>
+            <artifactId>account-remote</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>edu.depaul.cdm.se</groupId>
+            <artifactId>account-jpa</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+  <build>
+        <plugins>
+            <!-- Need to disable auto testing given MDB dependency  -->
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-surefire-plugin</artifactId>
+               <version>2.16</version>
+               <configuration>
+                   <skipTests>true</skipTests>
+               </configuration>
+           </plugin>          
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>copy-test-persistence</id>
+                        <phase>process-test-resources</phase>
+                        <configuration>
+                            <tasks>
+                                <echo>Copying test</echo> 
+                                <!--backup the "proper" persistence.xml-->
+                                <copy file="${project.build.outputDirectory}/META-INF/persistence.xml" tofile="${project.build.outputDirectory}/META-INF/persistence.xml.proper" overwrite="true"/>
+                                <!--replace the "proper" persistence.xml with the "test" version-->
+                                <copy file="${project.build.testOutputDirectory}/META-INF/persistence.xml" tofile="${project.build.outputDirectory}/META-INF/persistence.xml" overwrite="true"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>restore-persistence</id>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <tasks>
+                                <echo>Prepping for real persistence.xml usage</echo> 
+                                <!--
+                                    restore the "proper" persistence.xml
+                                    this would work on the normal build but doesn't work if you want to run Test from 
+                                -->                               
+                                <move file="${project.build.testOutputDirectory}/META-INF/persistence.xml" tofile="${project.build.outputDirectory}/META-INF/persistence.xml.test" overwrite="true"/>
+                                <copy file="${project.build.outputDirectory}/META-INF/persistence.xml.proper" tofile="${project.build.outputDirectory}/META-INF/persistence.xml" overwrite="true"/>                            
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>copy-test-persitence</id>
+                        <phase>install</phase>
+                        <configuration>
+                            <tasks>
+                                <!--
+                                    Seems little screwy but this is needed after the install step is run because 
+                                    in NetBeans clean build will run install and in order for stand alone JUnits to work
+                                    need to get the jdbc/__default value into persistence.xml which is in the test
+                                -->
+                                <echo>Copying test</echo> 
+                                <copy file="${project.build.outputDirectory}/META-INF/persistence.xml.test" tofile="${project.build.outputDirectory}/META-INF/persistence.xml" overwrite="true"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+          
+        </plugins>
+    </build>
+  
+
+</project>

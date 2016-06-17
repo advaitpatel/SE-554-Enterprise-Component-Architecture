@@ -1,0 +1,45 @@
+I)  Glassfish setup
+Need to define GlassfishClient to point to <glassfish install>\glassfish\lib\gf-client.jar
+
+To run these examples you must have GlassFish running and create the following administered objects :
+
+To manage JMS connection factories using the command-line utility from <glassfish install>\glassfish\bin, 
+
+> asadmin create-jms-resource --restype javax.jms.ConnectionFactory jms/ConnectionFactory
+> asadmin create-jms-resource --restype javax.jms.Queue jms/Queue
+> asadmin create-jms-resource --restype javax.jms.Topic jms/Topic
+> asadmin create-jms-resource --restype javax.jms.Queue jms/CalculatorQ
+> asadmin create-jms-resource --restype javax.jms.Queue jms/transferFundsQ
+
+> asadmin list-jms-resources
+jms/CalculatorQ
+jms/transferFundsQ
+jms/Queue
+jms/Topic
+jms/ConnectionFactory
+
+If you need to empty a destination (flush all messages), this is what you need to do (the name of the destination is the physical name, not the JNDI name) :
+> asadmin flush-jmsdest --desttype queue jms_Queue
+> asadmin flush-jmsdest --desttype topic jms_Topic
+
+
+to validate queues have been created
+> asadmin use list-jms-resources       
+delete-jms-resource command to validate
+
+II)  JBoss setup
+start server with full configuration
+>>> standalone.bat -c standalone-full.xml
+
+start client
+>>> jboss-cli --conect
+
+Add Queue
+>>>	jms-queue add --queue-address=myQueue --entries=jms/Queue
+>>> jms-queue add --queue-address=myQueue --entries=jms/CalculatorQ
+>>> jms-queue add --queue-address=myQueue --entries=jms/transferFundsQ
+
+Add Topic
+>>> jms-topic add --topic-address=testTopic --entries=jms/Topic
+
+http://stackoverflow.com/questions/7515220/how-to-get-the-new-jndi-names-esp-connectionfactory

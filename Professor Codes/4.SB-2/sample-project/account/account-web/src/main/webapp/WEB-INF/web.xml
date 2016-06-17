@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+    <display-name>Authentication</display-name>
+    <welcome-file-list>
+        <welcome-file>welcome.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+  
+
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config>
+
+  
+    <!-- 
+    you could also define a page that is displayed if
+    glassfish determins that an authenticated user is not
+    authorized to access a resource
+    <error-page>
+      <error-code>403</error-code>
+      <location>/not-authorized.html</location>
+    </error-page>
+    -->
+   
+    <security-constraint>
+  
+        <!-- everything below /secure/* and /services/secure/* requires authentication -->
+        <web-resource-collection>
+            <web-resource-name>Secured Content</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+      
+        <!-- only users with at least one of these roles are allowed to access the secured content -->
+        <auth-constraint>
+            <role-name>CSR</role-name>
+            <role-name>customer</role-name>
+        </auth-constraint>
+  
+        <!-- we always want https! -->
+        <user-data-constraint>
+            <description>highest supported transport security level</description>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+  
+    </security-constraint>
+  
+    <!-- declare the roles relevant for our webapp -->
+    <security-role>
+        <role-name>CSR</role-name>
+    </security-role>
+    <security-role>
+        <role-name>customer</role-name>
+    </security-role>
+   
+    <session-config>
+        <!-- on productive systems you might have another value for the timeout -->
+        <session-timeout>5</session-timeout>
+        <!-- 
+           we don't want to use the default name JSESSIONID because this 
+           tells everyone (especially hackers) that our application is based on java 
+        -->
+        <cookie-config>
+            <name>SESSIONID</name>
+        </cookie-config>
+    </session-config>
+  
+</web-app>

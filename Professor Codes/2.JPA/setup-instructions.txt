@@ -1,0 +1,11 @@
+I)  Glassfish setup
+
+To run these examples you must have GlassFish running and create the following administered objects :
+
+
+
+To manage JDBC connection factories using the command-line utility from %gf_install_dir%\glassfish\bin, 
+
+
+> asadmin create-jdbc-connection-pool --datasourceclassname org.apache.derby.jdbc.ClientDataSource --restype javax.sql.XADataSource --property portNumber=1527:password=APP:user=APP:serverName=localhost:databaseName=SE554DB:connectionAttributes=\;create\\=true SE554Pool
+> asadmin create-jdbc-resource –connectionpoolid SE554Pool jdbc/SE554

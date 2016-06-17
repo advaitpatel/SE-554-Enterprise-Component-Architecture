@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/Kyung/Documents/GitHub/DePaul-SE554/L7-SOAP/non-project/SOAP-client/src/wsdl/AddressedGreeterService.wsdl" uri="wsdl/AddressedGreeterService.wsdl"/>
+    <system systemId="file:/C:/Users/Kyung/Documents/GitHub/DePaul-SE554/L7-SOAP/non-project/SOAP-client/src/wsdl/GreeterService.wsdl" uri="wsdl/GreeterService.wsdl"/>
+    <system systemId="http://localhost:8080/SOAP/AddressedGreeterService?wsdl" uri="wsdl/localhost_8080/SOAP/AddressedGreeterService.wsdl"/>
+    <system systemId="http://localhost:8080/SOAP/AddressedGreeterService?xsd=1" uri="wsdl/localhost_8080/SOAP/AddressedGreeterService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/SOAP/AddressedGreeterService?xsd=2" uri="wsdl/localhost_8080/SOAP/AddressedGreeterService.xsd_2.xsd"/>
+    <system systemId="http://www.w3.org/2006/03/addressing/ws-addr.xsd" uri="wsdl/www.w3.org/2006/03/addressing/ws-addr.xsd"/>
+    <system systemId="http://localhost:8080/SOAP/GreeterService?wsdl" uri="wsdl/localhost_8080/SOAP/GreeterService.wsdl"/>
+    <system systemId="http://localhost:8080/SOAP/GreeterService?xsd=1" uri="wsdl/localhost_8080/SOAP/GreeterService.xsd_1.xsd"/>
+</catalog>

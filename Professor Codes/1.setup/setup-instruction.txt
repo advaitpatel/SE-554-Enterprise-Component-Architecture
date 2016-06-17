@@ -1,0 +1,40 @@
+I)  IDE Setup
+(a) NetBeans
+   https://netbeans.org/downloads/
+   Download Java EE edition ****make sure Glassfish is selected****
+   Admin password embedded in NetBeans setup
+
+(b) Eclipse
+   b1)  Download Glassfish (https://glassfish.java.net/)
+   b2)  Download Eclipse (https://eclipse.org) Elect to download Eclipse IDE for Java EE Developers
+   b3)  Install Glassfish plugin From Eclipse Market place 
+   b4)  IDE will restart after installation    
+   b5)  Define new server (point to location where glassfish from b1 was unzipped, make sure you select down to domain level)
+   
+II)  Glassfish setup for database
+(a) add path to include %gf_install_dir%\glassfish\bin 
+for Windows, it may be something like path=%path%;\gf\glassfish\bin
+for Linux, it may be
+(b) execute setup.bat or setup.sh
+
+For reference following are the manual steps
+I. asadmin start-domain
+
+wait for it to show started successful
+
+then type the following 2 commands
+II.  
+(a) for linux based (include Apple) type
+asadmin create-jdbc-connection-pool --datasourceclassname org.apache.derby.jdbc.ClientDataSource --restype javax.sql.XADataSource --property portNumber=1527:password=APP:user=APP:serverName=localhost:databaseName=SE554DB:connectionAttributes=\;create\\=true SE554Pool
+
+(b) for windows 
+asadmin create-jdbc-connection-pool --datasourceclassname org.apache.derby.jdbc.ClientDataSource --restype javax.sql.XADataSource --property portNumber=1527:password=APP:user=APP:serverName=localhost:databaseName=SE554DB:connectionAttributes=\;create\=true SE554Pool
+
+III. asadmin create-jdbc-resource --connectionpoolid SE554Pool jdbc/SE554
+
+IV.  asadmin stop-domain
+
+from IDE, on the project, you can right click and select run.  It should start the Glassfish server, open a browser to http://localhost:8080/1.setup and show a book list
+
+You are now set
+
