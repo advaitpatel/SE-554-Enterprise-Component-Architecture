@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="ecampusconnectPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>se.project.ecampusconnect.admin.Admin</class>
+    <class>se.project.ecampusconnect.course.Course</class>
+    <class>se.project.ecampusconnect.course.Enrollment</class>
+    <class>se.project.ecampusconnect.course.InclassCourse</class>
+    <class>se.project.ecampusconnect.course.OnlineCourse</class>
+    <class>se.project.ecampusconnect.events.Event</class>
+    <class>se.project.ecampusconnect.professor.Instructor</class>
+    <class>se.project.ecampusconnect.student.Student</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/SE554DB"/>
+      <property name="javax.persistence.jdbc.user" value="APP"/>
+      <property name="javax.persistence.jdbc.password" value="APP"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
